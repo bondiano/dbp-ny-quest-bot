@@ -1,0 +1,137 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int     @id @default(autoincrement())
+  telegramId String  @unique @map("telegram_id")
+  email      String  @unique
+  slackName  String? @unique @map("slack_name")
+  language   String  @default("ru")
+
+  role String @default("user")
+
+  answers Answer[]
+  quzes   UserQuiz[]
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map(name: "users")
+}
+
+model Answer {
+  id     Int    @id @default(autoincrement())
+  answer String
+
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId Int      @map("question_id")
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int      @map("user_id")
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map(name: "answers")
+}
+
+model Question {
+  id     Int    @id @default(autoincrement())
+  text   String
+  answer String
+  status String @default("draft")
+
+  media   Media?         @relation(fields: [mediaId], references: [id])
+  mediaId Int?           @map("media_id")
+  quizes  QuizQuestion[]
+  answers Answer[]
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map(name: "questions")
+}
+
+model Quiz {
+  id          Int    @id @default(autoincrement())
+  slug        String @unique
+  title       String
+  description String
+  status      String @default("draft")
+  language    String @default("ru")
+
+  secret         String? @default("")
+  secretMsg      String? @map("secret_msg")
+  isSecretSolved Boolean @default(false) @map("is_secret_solved")
+
+  participants UserQuiz[]
+  questions    QuizQuestion[]
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map(name: "quizzes")
+}
+
+model QuizQuestion {
+  id    Int @id @default(autoincrement())
+  order Int
+
+  quiz       Quiz     @relation(fields: [quizId], references: [id])
+  quizId     Int      @map("quiz_id")
+  questionId Int      @map("question_id")
+  question   Question @relation(fields: [questionId], references: [id])
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([quizId])
+  @@map(name: "quiz_questions")
+}
+
+model UserQuiz {
+  id     Int    @id @default(autoincrement())
+  status String
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @map("user_id")
+  quiz   Quiz @relation(fields: [quizId], references: [id])
+  quizId Int  @map("quiz_id")
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map(name: "user_quizzes")
+}
+
+model Session {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String
+
+  @@map(name: "session")
+}
+
+model Media {
+  id                Int    @id @default(autoincrement())
+  telegramMediaId   String
+  telegramMediaType String
+  type              String
+
+  Question Question[]
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  @@index([type])
+  @@index([telegramMediaId])
+
+  @@map(name: "media")
+}
