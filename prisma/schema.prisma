@@ -16,6 +16,8 @@ model User {
 
   role String @default("user")
 
+  lastAnswerAt DateTime?
+
   answers Answer[]
   quzes   UserQuiz[]
 
@@ -26,8 +28,9 @@ model User {
 }
 
 model Answer {
-  id     Int    @id @default(autoincrement())
-  answer String
+  id        Int     @id @default(autoincrement())
+  answer    String
+  isCorrect Boolean @default(false) @map("is_correct")
 
   question   Question @relation(fields: [questionId], references: [id])
   questionId Int      @map("question_id")
@@ -46,6 +49,7 @@ model Question {
   text   String
   answer String
   status String @default("draft")
+  type   String @default("single")
 
   media   Media?         @relation(fields: [mediaId], references: [id])
   mediaId Int?           @map("media_id")
@@ -66,8 +70,8 @@ model Quiz {
   status      String @default("draft")
   language    String @default("ru")
 
-  secret         String? @default("")
-  secretMsg      String? @map("secret_msg")
+  secret         String?
+  secretMsg      String?
   isSecretSolved Boolean @default(false) @map("is_secret_solved")
 
   participants UserQuiz[]
@@ -132,6 +136,5 @@ model Media {
 
   @@index([type])
   @@index([telegramMediaId])
-
   @@map(name: "media")
 }

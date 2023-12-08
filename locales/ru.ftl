@@ -24,6 +24,18 @@ profile =
 quiz =
     .list = Доступные квизы:
         {$quizzes}
+    .not-found = Квиз не найден.
+    .start = Начать квиз
+    .stop = Выйти из квиза
+    .leaderboard = Таблица лидеров
+    .continue = Продолжить
+
+question =
+    .new-not-found = Пока новых вопросов нет.
+
+answer =
+    .correct = Верно!
+    .incorrect = Неверно. Попробуйте еще раз.
 
 language =
     .select = Пожалуйста, выберите язык:

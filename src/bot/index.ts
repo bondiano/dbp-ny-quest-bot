@@ -19,7 +19,9 @@ import {
   unhandledFeature,
   welcomeFeature,
 } from './features';
+import { helpersFeature } from './features/helpers';
 import { quizzesFeature } from './features/quiz';
+import { userQuizzesFeature } from './features/user-quiz';
 import { errorHandler } from './handlers/error';
 import { PrismaAdapter } from './helpers/session-adapter';
 import { i18n, isMultipleLocales } from './i18n';
@@ -59,6 +61,7 @@ export const createBot = () => {
 
   protectedBot.use(userMiddleware());
   protectedBot.use(pseudoUpdate);
+  protectedBot.use(helpersFeature);
 
   protectedBot.use(scenes);
 
@@ -67,6 +70,7 @@ export const createBot = () => {
   protectedBot.use(adminFeature);
   protectedBot.use(profileFeature);
   protectedBot.use(quizzesFeature);
+  protectedBot.use(userQuizzesFeature);
 
   if (isMultipleLocales) {
     protectedBot.use(languageFeature);

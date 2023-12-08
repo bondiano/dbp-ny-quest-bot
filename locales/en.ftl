@@ -21,6 +21,17 @@ profile =
     .change-language = Change language
     .quizzes = Available quizzes
 
+quiz =
+    .list = Available quizzes:
+        {$quizzes}
+    .not-found = Quiz not found.
+    .start = Start quiz
+    .stop = Exit from quiz
+    .continue = Continue
+
+question =
+    .new-not-found = No new questions found, yet.
+
 language =
     .select = Please, select your language
     .changed = Language successfully changed!

@@ -88,6 +88,17 @@ export class QuizService {
     });
   }
 
+  async hasUserQuiz(userId: number, quizId: number) {
+    const userQuiz = await prisma.userQuiz.findFirst({
+      where: {
+        userId,
+        quizId,
+      },
+    });
+
+    return Boolean(userQuiz);
+  }
+
   async publish(slug: string) {
     const quiz = await this.getQuizBySlug(slug);
 

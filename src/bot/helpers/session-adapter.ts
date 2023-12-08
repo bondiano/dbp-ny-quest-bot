@@ -6,15 +6,11 @@ export class PrismaAdapter<T> implements StorageAdapter<T> {
   async read(key: string) {
     const session = await prisma.session.findUnique({ where: { key } });
 
-    console.log('read session', session);
-
     return session?.value ? (JSON.parse(session.value) as T) : undefined;
   }
 
   async write(key: string, data: T) {
     const value = JSON.stringify(data);
-
-    console.log('write session', key, value);
 
     await prisma.session.upsert({
       where: { key },

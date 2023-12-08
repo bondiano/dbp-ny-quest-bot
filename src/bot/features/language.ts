@@ -45,6 +45,13 @@ languageScene
 
       await context.i18n.setLocale(languageCode);
 
+      if (context.session.user) {
+        context.session.user.language = languageCode;
+        await context.services.user.updateUser(context.session.user.id, {
+          language: languageCode,
+        });
+      }
+
       await context.editMessageText(context.t('language.changed'));
 
       await context.scene.exit();
