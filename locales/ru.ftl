@@ -15,11 +15,15 @@ onboarding =
     .name-invalid = Неверное имя. Введите имя как в корпоративном Slack'e.
     .done = Теперь вы можете использовать /profile для просмотра и редактирования профиля. И /quiz для просмотра доступных квизов.
 
-profie =
-    .message = Добро пожаловать, <i>{name}</i>!
+profile =
+    .message = <i>{$name}</i>, добро пожаловать!
     .answers = Мои ответы
     .change-language = Сменить язык
     .quizzes = Доступные квизы
+
+quiz =
+    .list = Доступные квизы:
+        {$quizzes}
 
 language =
     .select = Пожалуйста, выберите язык:

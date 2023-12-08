@@ -15,8 +15,8 @@ onboarding =
     .name-invalid = Invalid name. Please, try again.
     .done = Now you can use /profile to view and edit your profile. And /quiz to view available quizzes.
 
-profie =
-    .message = Welcome, {name}!
+profile =
+    .message =  <i>{$name}</i>, welcome!
     .answers = My answers
     .change-language = Change language
     .quizzes = Available quizzes

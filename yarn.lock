@@ -1113,19 +1113,6 @@
   resolved "https://registry.npmjs.org/@deno/shim-deno-test/-/shim-deno-test-0.3.3.tgz#2dd014a2649507477f904d0172dd88341354086d"
   integrity sha512-Ge0Tnl7zZY0VvEfgsyLhjid8DzI1d0La0dgm+3m0/A8gZXgp5xwlyIyue5e4SCUuVB/3AH/0lun9LcJhhTwmbg==
 
-"@deno/shim-deno-test@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.npmjs.org/@deno/shim-deno-test/-/shim-deno-test-0.4.0.tgz#2ff56821854c51323c0cd08a4a56d668f84367ba"
-  integrity sha512-oYWcD7CpERZy/TXMTM9Tgh1HD/POHlbY9WpzmAk+5H8DohcxG415Qws8yLGlim3EaKBT2v3lJv01x4G0BosnaQ==
-
-"@deno/shim-deno@~0.16.1":
-  version "0.16.1"
-  resolved "https://registry.npmjs.org/@deno/shim-deno/-/shim-deno-0.16.1.tgz#f7d3925745c74337c83818de7d6435557c816c60"
-  integrity sha512-s9v0kzF5bm/o9TgdwvsraHx6QNllYrXXmKzgOG2lh4LFXnVMr2gpjK/c/ve6EflQn1MqImcWmVD8HAv5ahuuZQ==
-  dependencies:
-    "@deno/shim-deno-test" "^0.4.0"
-    which "^2.0.2"
-
 "@deno/shim-deno@~0.9.0":
   version "0.9.0"
   resolved "https://registry.npmjs.org/@deno/shim-deno/-/shim-deno-0.9.0.tgz#b70d8daee67210c45f316006f4b65144e0a62519"
@@ -1528,15 +1515,6 @@
   resolved "https://registry.npmjs.org/@grammyjs/auto-chat-action/-/auto-chat-action-0.1.1.tgz#2c70faca0e317ac3e742ea241181cedaa4231081"
   integrity sha512-70Jdy+keIri4452tluaZpKtHag5gD8pNczoXqajsnsx7pJC5wg3DAQ5unpt0xJb8KsVBAGWuJb298SBl3TVecg==
 
-"@grammyjs/conversations@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/@grammyjs/conversations/-/conversations-1.1.2.tgz#99de24e1202c7e75d11e5939cc3337753f763971"
-  integrity sha512-ARBxa8oBMips2E2ZBVhB5/UFuzx8F3d721p6dJSJ7wSX9Gzuw2KZuQJOrhQnbQWZLgZz4bKBRuqbGzazKXPtZg==
-  dependencies:
-    "@grammyjs/types" "^3.1.1"
-    debug "^4.3.4"
-    o-son "^1.0.1"
-
 "@grammyjs/emoji@^1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@grammyjs/emoji/-/emoji-1.1.0.tgz#666857a1104644abf53ae30861bb913d3b0b1e75"
@@ -1561,7 +1539,7 @@
   resolved "https://registry.npmjs.org/@grammyjs/parse-mode/-/parse-mode-1.8.1.tgz#8519bce602cced3ce58daf1c843189bfe40c5a7a"
   integrity sha512-L/tRwQd2rm5Bniglea+fdWp9VX9nNNNLTwQFVCgkUUtPDMkneAVRBnX62r9YHmf0cPvA74+Xtn0v2ojOdLG9ng==
 
-"@grammyjs/types@3.3.0", "@grammyjs/types@^3.1.1":
+"@grammyjs/types@3.3.0":
   version "3.3.0"
   resolved "https://registry.npmjs.org/@grammyjs/types/-/types-3.3.0.tgz#04cf44943c789635a8e7dcd37846a962d57fb14f"
   integrity sha512-18Qb12jXiIptqZAlboJMvFxNxydLskUjvE5PbU8ergKQlNIr8jRvYoHDm4t/x3qEfpf+FNhGw23lyZfgEE6e/g==
@@ -3779,6 +3757,11 @@ fsevents@~2.3.2, fsevents@~2.3.3:
   resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz#cac6407785d03675a2a5e1a5305c697b347d90d6"
   integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
+fsmoothy@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.npmjs.org/fsmoothy/-/fsmoothy-1.8.1.tgz#2a129b2477386af1a4e248d8024121e38635658b"
+  integrity sha512-agT8NbfIgUTVNtcuNFTfVwkN2nDQP3Y6HYvnMNTUIrL5Xp21zapXgvCyTaCuRAleGIbPl0zzLv3TmxUX19DFMg==
+
 function-bind@^1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz#2c02d864d97f3ea6c8830c464cbd11ab6eab7a1c"
@@ -4763,13 +4746,6 @@ npm-run-path@^5.1.0:
   integrity sha512-sJOdmRGrY2sjNTRMbSvluQqg+8X7ZK61yvzBEIDhz4f8z1TZFYABsqjjCBd/0PUNE9M6QDgHJXQkGUEm7Q+l9Q==
   dependencies:
     path-key "^4.0.0"
-
-o-son@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/o-son/-/o-son-1.0.2.tgz#ded30db31c732f1089693b8900a7090da71d3686"
-  integrity sha512-wWHDKHHL2+U6E9HoNc9GqZ14h4l8k8BK565bGk8P4jKqPRDlS/gSsyIP3Atq55CfJY9w7bg+Jyp0LIQv0g4aEg==
-  dependencies:
-    "@deno/shim-deno" "~0.16.1"
 
 object-assign@^4.1.1:
   version "4.1.1"

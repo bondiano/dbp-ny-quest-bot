@@ -15,9 +15,11 @@ import { createContextConstructor } from './context';
 import {
   adminFeature,
   languageFeature,
+  profileFeature,
   unhandledFeature,
   welcomeFeature,
 } from './features';
+import { quizzesFeature } from './features/quiz';
 import { errorHandler } from './handlers/error';
 import { PrismaAdapter } from './helpers/session-adapter';
 import { i18n, isMultipleLocales } from './i18n';
@@ -63,6 +65,8 @@ export const createBot = () => {
   // Handlers
   protectedBot.use(welcomeFeature);
   protectedBot.use(adminFeature);
+  protectedBot.use(profileFeature);
+  protectedBot.use(quizzesFeature);
 
   if (isMultipleLocales) {
     protectedBot.use(languageFeature);

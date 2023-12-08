@@ -4,19 +4,25 @@ import { profileData } from '../callback-data';
 
 import type { Context } from '../context';
 
-export const createProfileKeyboard = async (context: Context) => {
+export enum ProfileKeyboardOptions {
+  Answers = 'answers',
+  ChangeLanguage = 'change-language',
+  Quizzes = 'quizzes',
+}
+
+export const createProfileKeyboard = (context: Context) => {
   return InlineKeyboard.from([
     [
       {
         text: context.t('profile.answers'),
         callback_data: profileData.pack({
-          option: 'answers',
+          option: ProfileKeyboardOptions.Answers,
         }),
       },
       {
         text: context.t('profile.change-language'),
         callback_data: profileData.pack({
-          option: 'change-language',
+          option: ProfileKeyboardOptions.ChangeLanguage,
         }),
       },
     ],
@@ -24,7 +30,7 @@ export const createProfileKeyboard = async (context: Context) => {
       {
         text: context.t('profile.quizzes'),
         callback_data: profileData.pack({
-          option: 'quizzes',
+          option: ProfileKeyboardOptions.Quizzes,
         }),
       },
     ],

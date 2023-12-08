@@ -5,11 +5,14 @@ import { chatAction } from '@grammyjs/auto-chat-action';
 
 import { Context } from '@quiz-bot/bot/context';
 
+import { scenes } from '../scenes';
+
 export const OnboardingScene = 'onboarding';
 
 const dualbootEmailDomain = 'dualbootpartners.com';
 
 export const onboardingScene = new Scene<Context>(OnboardingScene);
+scenes.scene(onboardingScene);
 
 onboardingScene.always().do(chatAction('typing'));
 
