@@ -9,6 +9,7 @@ export enum QuizKeyboardOptions {
   Start = 'start',
   Continue = 'continue',
   Stop = 'stop',
+  Leaderboard = 'leaderboard',
 }
 
 export const createUserQuizKeyboard = async (
@@ -30,6 +31,14 @@ export const createUserQuizKeyboard = async (
           text: context.t('quiz.stop'),
           callback_data: quizData.pack({
             option: QuizKeyboardOptions.Stop,
+          }),
+        },
+      ],
+      [
+        {
+          text: context.t('quiz.leaderboard'),
+          callback_data: quizData.pack({
+            option: QuizKeyboardOptions.Leaderboard,
           }),
         },
       ],

@@ -68,6 +68,14 @@ export class UserQuizStatusFSM extends StateMachine<
 }
 
 export class UserQuizService {
+  async getById(id: number) {
+    return await prisma.userQuiz.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+
   async start(quizId: number, userId: number) {
     const userQuiz = await prisma.userQuiz.create({
       data: {
@@ -101,7 +109,7 @@ export class UserQuizService {
     await userQuizFSM.stop();
   }
 
-  async getUserQuizByUserIdAndQuizId(userId: number, quizId: number) {
+  async getByUserIdAndQuizId(userId: number, quizId: number) {
     return await prisma.userQuiz.findFirst({
       where: {
         userId,
@@ -144,14 +152,16 @@ export class UserQuizService {
     });
 
     if (!userQuiz) {
-      throw new Error(`User quiz with id ${userQuizId} not found`);
+      return null;
     }
 
     const { quiz, user } = userQuiz;
 
     const notAnsweredQuestions = quiz.questions.filter(
       (question) =>
-        !user.answers.some((answer) => answer.questionId === question.id),
+        !user.answers.some(
+          (answer) => answer.questionId === question.id && answer.isCorrect,
+        ),
     );
 
     if (notAnsweredQuestions.length === 0) {
@@ -161,5 +171,61 @@ export class UserQuizService {
     const sortedQuestions = _.sortBy(notAnsweredQuestions, 'order');
 
     return sortedQuestions.at(0) ?? null;
+  }
+
+  async getLeaderboard(quizId: number, userId: number) {
+    const leaderboard = await prisma.userQuiz.findMany({
+      where: {
+        quizId,
+        status: UserQuizStatus.Active,
+      },
+      include: {
+        user: {
+          include: {
+            answers: true,
+          },
+        },
+      },
+    });
+
+    const sortedLeaderboard = _.sortBy(leaderboard, (userQuiz) => {
+      const user = userQuiz.user;
+
+      const correctAnswersCount = user.answers.filter(
+        (answer) => answer.isCorrect,
+      ).length;
+
+      const answersDates = user.answers.map((answer) => answer.createdAt);
+
+      const lastAnswerAt = _.max(answersDates) ?? new Date();
+
+      return correctAnswersCount * 1_000_000_000_000 - lastAnswerAt.getTime();
+    }).map((userQuiz) => {
+      const user = userQuiz.user;
+
+      const correctAnswersCount = user.answers.filter(
+        (answer) => answer.isCorrect,
+      ).length;
+
+      return {
+        userId: user.id,
+        slackName: user.slackName,
+        correctAnswersCount,
+      };
+    });
+
+    const userQuizIndex = sortedLeaderboard.findIndex(
+      (userQuiz) => userQuiz.userId === userId,
+    );
+
+    const user = {
+      index: userQuizIndex,
+      correctAnswersCount: sortedLeaderboard[userQuizIndex].correctAnswersCount,
+    };
+
+    return {
+      leaderboard: sortedLeaderboard,
+      user,
+    };
   }
 }

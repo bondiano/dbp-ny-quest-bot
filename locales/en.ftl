@@ -27,10 +27,18 @@ quiz =
     .not-found = Quiz not found.
     .start = Start quiz
     .stop = Exit from quiz
+     .leaderboard = Leaderboard
     .continue = Continue
+    .time-limit = You need to wait {$time} seconds before answering the next question.
 
 question =
     .new-not-found = No new questions found, yet.
+    .next = <b>Answer the question:</b>
+        {$question}
+
+answer =
+    .correct = Correct!
+    .incorrect = Not Correct. Retry later.
 
 language =
     .select = Please, select your language

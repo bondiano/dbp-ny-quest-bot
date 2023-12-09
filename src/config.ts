@@ -20,10 +20,14 @@ export const configSchema = {
   BOT_SERVER_HOST: z.string().default('0.0.0.0'),
 
   BOT_SERVER_PORT: znv.port(),
-  BOT_ADMINS: z.array(z.number()).default([]),
   BOT_ALLOWED_UPDATES: z
     .array(z.enum(API_CONSTANTS.ALL_UPDATE_TYPES))
     .default([]),
+
+  ADMIN_EMAIL: z.string(),
+  ADMIN_PASSWORD: z.string(),
+
+  COOKIE_SECRET: z.string().min(32),
 };
 
 const environmentVariables = znv.parseEnv(process.env, configSchema);

@@ -1,5 +1,11 @@
-import { isUserHasId } from 'grammy-guard';
+import { Context } from '../context';
 
-import { config } from '../../config';
+export const isAdmin = (context: Context) => {
+  const user = context.session.user;
 
-export const isAdmin = isUserHasId(...config.BOT_ADMINS);
+  if (!user) {
+    return false;
+  }
+
+  return user.role === 'admin';
+};

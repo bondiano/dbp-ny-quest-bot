@@ -29,9 +29,17 @@ quiz =
     .stop = Выйти из квиза
     .leaderboard = Таблица лидеров
     .continue = Продолжить
+    .time-limit = Вам нужно подождать { $time ->
+        [one] одну секунду
+        *[few] {$time} секунды
+        [many] {$time} секунд
+    }, прежде чем ответить снова.
+    .notify-about-quiz = Новый вопрос доступен в квизе <b>{$name}</b>. /quiz_{$slug}
 
 question =
     .new-not-found = Пока новых вопросов нет.
+    .next = <b>Введите ответ на следующий вопрос:</b>
+        {$question}
 
 answer =
     .correct = Верно!

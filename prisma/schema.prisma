@@ -46,8 +46,9 @@ model Answer {
 
 model Question {
   id     Int    @id @default(autoincrement())
-  text   String
-  answer String
+  slug   String @default("")
+  text   String @default("")
+  answer String @default("")
   status String @default("draft")
   type   String @default("single")
 
@@ -125,6 +126,7 @@ model Session {
 
 model Media {
   id                Int    @id @default(autoincrement())
+  slug              String @unique
   telegramMediaId   String
   telegramMediaType String
   type              String
@@ -137,4 +139,11 @@ model Media {
   @@index([type])
   @@index([telegramMediaId])
   @@map(name: "media")
+}
+
+model AdminSession {
+  id        String   @id @default(uuid())
+  sid       String   @unique
+  data      String
+  expiresAt   DateTime?
 }

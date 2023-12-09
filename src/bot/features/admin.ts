@@ -1,4 +1,5 @@
 import { Composer } from 'grammy';
+import _ from 'lodash';
 
 import { chatAction } from '@grammyjs/auto-chat-action';
 
@@ -20,11 +21,34 @@ feature.command(
   setCommandsHandler,
 );
 
-feature.command('start_quiz', logHandle('command-start_quiz'));
-
 feature.command(
-  'activate_quiz_question',
+  'notify_about_quiz',
   logHandle('command-activate_quiz_question'),
+  async (context) => {
+    const slug = context.message.text.replace('/notify_about_quiz ', '');
+
+    const quiz = await context.services.quiz.getQuizBySlug(slug);
+
+    if (!quiz) {
+      await context.reply(context.t('quiz.not-found'));
+      return;
+    }
+
+    const telegramIds = _.uniq(
+      quiz.participants.map((participant) => participant.user.telegramId),
+    );
+
+    const text = context.t('quiz.notify-about-quiz', {
+      name: quiz.title,
+      slug: quiz.slug,
+    });
+
+    await Promise.all(
+      telegramIds.map(async (telegramId) => {
+        return await context.api.sendMessage(telegramId, text);
+      }),
+    );
+  },
 );
 
 export { composer as adminFeature };

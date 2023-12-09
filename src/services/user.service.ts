@@ -3,6 +3,16 @@ import { User } from '@prisma/client';
 import { prisma } from '@quiz-bot/prisma';
 
 export class UserService {
+  async getUsersByIds(userIds: Array<number>) {
+    return await prisma.user.findMany({
+      where: {
+        id: {
+          in: userIds,
+        },
+      },
+    });
+  }
+
   async getUserInfo(telegramId: string) {
     return await prisma.user.findUnique({
       where: {

@@ -1,9 +1,7 @@
-// @ts-expect-error - adminjs requires NodeNext modules
-import AdminJSFastify from '@adminjs/fastify';
 import Fastify from 'fastify';
 import { onShutdown } from 'node-graceful-shutdown';
 
-import { createAdmin } from './admin';
+import { attachAdminJS } from './admin';
 import { createBot } from './bot';
 import { config } from './config';
 import { logger } from './logger';
@@ -12,9 +10,8 @@ import { Routes, createRouter } from './routes';
 
 export const createApp = async () => {
   const app = Fastify();
-  const admin = createAdmin();
 
-  await AdminJSFastify.buildRouter(admin, app);
+  await attachAdminJS(app);
 
   const bot = createBot();
 

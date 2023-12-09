@@ -97,3 +97,5 @@ dist
 # IDE
 .vscode
 .idea
+
+.node_repl_history

@@ -1,13 +1,28 @@
 // @ts-expect-error - adminjs requires NodeNext modules
+import AdminJSFastify from '@adminjs/fastify';
+// @ts-expect-error - adminjs requires NodeNext modules
 import { Database, Resource, getModelByName } from '@adminjs/prisma';
-import AdminJS from 'adminjs';
+import { FastifySessionOptions } from '@fastify/session';
+import AdminJS, { ResourceWithOptions } from 'adminjs';
+import { FastifyInstance } from 'fastify';
 
+import { config } from '@quiz-bot/config';
 import { prisma } from '@quiz-bot/prisma';
 
-export const createAdmin = () => {
+const authenticate = async (email: string, password: string) => {
+  if (email === config.ADMIN_EMAIL && password === config.ADMIN_PASSWORD) {
+    return {
+      email,
+      password,
+    };
+  }
+  return null;
+};
+
+export const attachAdminJS = async (app: FastifyInstance) => {
   AdminJS.registerAdapter({ Database, Resource });
 
-  const resources = [
+  const resources: Array<ResourceWithOptions> = [
     {
       resource: { model: getModelByName('User'), client: prisma },
       options: {},
@@ -26,7 +41,9 @@ export const createAdmin = () => {
     },
     {
       resource: { model: getModelByName('Question'), client: prisma },
-      options: {},
+      options: {
+        titleProperty: 'text',
+      },
     },
     {
       resource: { model: getModelByName('Quiz'), client: prisma },
@@ -42,8 +59,23 @@ export const createAdmin = () => {
     },
   ];
 
-  return new AdminJS({
+  const admin = new AdminJS({
     resources,
     rootPath: '/admin',
   });
+
+  const sessionOptions: FastifySessionOptions = {
+    secret: config.COOKIE_SECRET,
+  };
+
+  await AdminJSFastify.buildAuthenticatedRouter(
+    admin,
+    {
+      authenticate,
+      cookiePassword: config.COOKIE_SECRET,
+      cookieName: 'adminjs',
+    },
+    app,
+    sessionOptions,
+  );
 };

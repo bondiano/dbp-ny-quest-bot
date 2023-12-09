@@ -85,6 +85,13 @@ export class QuizService {
       where: {
         slug,
       },
+      include: {
+        participants: {
+          include: {
+            user: true,
+          },
+        },
+      },
     });
   }
 

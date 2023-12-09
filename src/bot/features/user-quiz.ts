@@ -73,7 +73,7 @@ userQuizScene.step(async (context) => {
     return;
   }
 
-  const userQuiz = await context.services.userQuiz.getUserQuizByUserIdAndQuizId(
+  const userQuiz = await context.services.userQuiz.getByUserIdAndQuizId(
     context.session.user.id,
     quiz!.id,
   );
@@ -111,14 +111,41 @@ userQuizScene
           break;
         }
         case QuizKeyboardOptions.Continue: {
-          const userQuiz =
-            await context.services.userQuiz.getUserQuizByUserIdAndQuizId(
-              context.session.user!.id,
-              quiz.id,
-            );
+          const userQuiz = await context.services.userQuiz.getByUserIdAndQuizId(
+            context.session.user!.id,
+            quiz.id,
+          );
 
           context.scene.session.userQuiz = userQuiz;
           break;
+        }
+        case QuizKeyboardOptions.Leaderboard: {
+          const leaderboard = await context.services.userQuiz.getLeaderboard(
+            quiz.id,
+            context.session.user!.id,
+          );
+
+          const leaderboardText = leaderboard.leaderboard
+            .map((board, index) => {
+              return `${index + 1}. <b>${board.slackName}</b> - ${
+                board.correctAnswersCount
+              }`;
+            })
+            .splice(0, 10);
+
+          if (leaderboard.user.index > 10) {
+            leaderboardText.push(
+              `... ${leaderboard.user.index + 1}. ${
+                context.session.user!.slackName
+              } - ${leaderboard.user.correctAnswersCount}`,
+            );
+          }
+
+          await context.editMessageText(quiz.description);
+          await context.reply(leaderboardText.join('\n'));
+          await context.scene.exit();
+
+          return;
         }
       }
 
@@ -150,7 +177,34 @@ userQuizScene.step(async (context) => {
 
   context.scene.session.question = nextQuestion.question;
 
-  await context.reply(nextQuestion.question.text);
+  const questionText = nextQuestion.question.text
+    .trim()
+    .replaceAll('<br/>', '\n')
+    .replaceAll('<br />', '\n')
+    .replaceAll('<br>', '\n');
+
+  if (nextQuestion.question.mediaId) {
+    const media = await context.prisma.media.findUnique({
+      where: {
+        id: nextQuestion.question.mediaId,
+      },
+    });
+
+    media &&
+      (await context.replyWithMediaGroup([
+        {
+          media: media?.telegramMediaId,
+          type: media?.type as 'photo' | 'audio' | 'document' | 'video',
+          caption: questionText,
+        },
+      ]));
+  } else {
+    await context.reply(
+      context.t('question.next', {
+        question: questionText,
+      }),
+    );
+  }
 });
 
 userQuizScene.wait('answer').on('message', async (context) => {
@@ -163,6 +217,13 @@ userQuizScene.wait('answer').on('message', async (context) => {
   }
 
   const isCorrect = question.answer === context.message!.text;
+
+  await context.services.answer.saveUserAnswer({
+    questionId: question.id,
+    userId: context.session.user!.id,
+    isCorrect,
+    answer: context.message!.text!,
+  });
 
   if (!isCorrect) {
     await context.reply(context.t('answer.incorrect'));
