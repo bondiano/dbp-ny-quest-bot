@@ -16,12 +16,13 @@ export const configSchema = {
     .default(Environment.Development),
 
   BOT_TOKEN: z.string(),
-  BOT_SERVER_HOST: z.string().default('0.0.0.0'),
+  BOT_DOMAIN: z.string().default('0.0.0.0'),
   BOT_ALLOWED_UPDATES: z
     .array(z.enum(API_CONSTANTS.ALL_UPDATE_TYPES))
     .default([]),
 
   SERVER_PORT: port(),
+  SERVER_HOST: z.string().default('0.0.0.0'),
 
   ADMIN_EMAIL: z.string(),
   ADMIN_PASSWORD: z.string(),

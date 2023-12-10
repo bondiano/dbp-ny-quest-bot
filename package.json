@@ -11,6 +11,8 @@
     "@quiz-bot/*": "./src/*"
   },
   "scripts": {
+    "prebuild": "rimraf dist",
+    "postinstall": "prisma generate",
     "dev": "DEBUG=grammy* tsx watch src/bin/dbp-quiz-bot.ts",
     "repl": "./src/bin/repl.ts",
     "build": "tsc && tsc-alias",

@@ -38,10 +38,11 @@ export const createApp = async () => {
 
   await app.listen({
     port: config.SERVER_PORT,
+    host: config.SERVER_HOST,
   });
 
   const webhookPath = app.reverse(Routes.Webhook);
-  const webhookUrl = `${config.BOT_SERVER_HOST}${webhookPath}`;
+  const webhookUrl = `${config.BOT_DOMAIN}${webhookPath}`;
 
   await bot.api.setWebhook(webhookUrl, {
     allowed_updates: config.BOT_ALLOWED_UPDATES,
