@@ -4,8 +4,8 @@
 import _ from 'lodash';
 import repl from 'node:repl';
 
-import { prisma } from '@quiz-bot/prisma';
-import { createServicesContainer } from '@quiz-bot/services';
+import { prisma } from '@quiz-bot/prisma.js';
+import { createServicesContainer } from '@quiz-bot/services/index.js';
 
 const r = repl.start({
   useColors: true,

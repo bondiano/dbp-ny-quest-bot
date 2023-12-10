@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
 
-import { prisma } from '@quiz-bot/prisma';
+import { prisma } from '@quiz-bot/prisma.js';
 
 export class UserService {
   async getUsersByIds(userIds: Array<number>) {

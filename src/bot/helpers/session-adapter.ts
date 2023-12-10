@@ -1,6 +1,6 @@
 import { type StorageAdapter } from 'grammy';
 
-import { prisma } from '@quiz-bot/prisma';
+import { prisma } from '@quiz-bot/prisma.js';
 
 export class PrismaAdapter<T> implements StorageAdapter<T> {
   async read(key: string) {

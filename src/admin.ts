@@ -1,13 +1,11 @@
-// @ts-expect-error - adminjs requires NodeNext modules
 import AdminJSFastify from '@adminjs/fastify';
-// @ts-expect-error - adminjs requires NodeNext modules
 import { Database, Resource, getModelByName } from '@adminjs/prisma';
 import { FastifySessionOptions } from '@fastify/session';
 import AdminJS, { ResourceWithOptions } from 'adminjs';
 import { FastifyInstance } from 'fastify';
 
-import { config } from '@quiz-bot/config';
-import { prisma } from '@quiz-bot/prisma';
+import { config } from '@quiz-bot/config.js';
+import { prisma } from '@quiz-bot/prisma.js';
 
 const authenticate = async (email: string, password: string) => {
   if (email === config.ADMIN_EMAIL && password === config.ADMIN_PASSWORD) {

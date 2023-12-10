@@ -1,4 +1,4 @@
-import { Context } from '../context';
+import { Context } from '../context.js';
 
 export const isAdmin = (context: Context) => {
   const user = context.session.user;

@@ -5,30 +5,30 @@ import { autoChatAction } from '@grammyjs/auto-chat-action';
 import { hydrate } from '@grammyjs/hydrate';
 import { hydrateReply, parseMode } from '@grammyjs/parse-mode';
 
-import { logger } from '@quiz-bot/logger';
-import { prisma } from '@quiz-bot/prisma';
-import { createServicesContainer } from '@quiz-bot/services/index';
+import { logger } from '@quiz-bot/logger.js';
+import { prisma } from '@quiz-bot/prisma.js';
+import { createServicesContainer } from '@quiz-bot/services/index.js';
 
-import { config } from '../config';
+import { config } from '../config.js';
 
-import { createContextConstructor } from './context';
+import { createContextConstructor } from './context.js';
+import { helpersFeature } from './features/helpers.js';
 import {
   adminFeature,
   languageFeature,
   profileFeature,
   unhandledFeature,
   welcomeFeature,
-} from './features';
-import { helpersFeature } from './features/helpers';
-import { quizzesFeature } from './features/quiz';
-import { userQuizzesFeature } from './features/user-quiz';
-import { errorHandler } from './handlers/error';
-import { PrismaAdapter } from './helpers/session-adapter';
-import { i18n, isMultipleLocales } from './i18n';
-import { updateLogger } from './middlewares/update-logger';
-import { userMiddleware } from './middlewares/user';
-import { scenes } from './scenes';
-import { SessionData, initialSessionData } from './session';
+} from './features/index.js';
+import { quizzesFeature } from './features/quiz.js';
+import { userQuizzesFeature } from './features/user-quiz.js';
+import { errorHandler } from './handlers/error.js';
+import { PrismaAdapter } from './helpers/session-adapter.js';
+import { i18n, isMultipleLocales } from './i18n.js';
+import { updateLogger } from './middlewares/update-logger.js';
+import { userMiddleware } from './middlewares/user.js';
+import { scenes } from './scenes.js';
+import { SessionData, initialSessionData } from './session.js';
 
 export const createBot = () => {
   const bot = new TelegramBot(config.BOT_TOKEN, {

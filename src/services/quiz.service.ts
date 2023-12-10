@@ -1,7 +1,7 @@
 import { Quiz } from '@prisma/client';
 import { StateMachine } from 'fsmoothy';
 
-import { prisma } from '@quiz-bot/prisma';
+import { prisma } from '@quiz-bot/prisma.js';
 
 export enum QuizStatus {
   Active = 'active',

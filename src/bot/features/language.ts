@@ -1,12 +1,12 @@
 import { Composer } from 'grammy';
 import { Scene } from 'grammy-scenes';
 
-import { changeLanguageData } from '../callback-data';
-import { Context } from '../context';
-import { logHandle } from '../helpers/logging';
-import { i18n } from '../i18n';
-import { createChangeLanguageKeyboard } from '../keyboards/change-language';
-import { scenes } from '../scenes';
+import { changeLanguageData } from '../callback-data/change-language.js';
+import { Context } from '../context.js';
+import { logHandle } from '../helpers/logging.js';
+import { i18n } from '../i18n.js';
+import { createChangeLanguageKeyboard } from '../keyboards/change-language.js';
+import { scenes } from '../scenes.js';
 
 export const LanguageScene = 'language';
 

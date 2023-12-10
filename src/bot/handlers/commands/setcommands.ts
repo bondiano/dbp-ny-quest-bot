@@ -1,11 +1,11 @@
 import { CommandContext } from 'grammy';
+import { Message } from 'grammy/types';
 
 import { BotCommand } from '@grammyjs/types';
 
-import { i18n, isMultipleLocales } from '@quiz-bot/bot/i18n';
-import { config } from '@quiz-bot/config';
+import { i18n, isMultipleLocales } from '@quiz-bot/bot/i18n.js';
 
-import type { Context } from '@quiz-bot/bot/context';
+import type { Context } from '@quiz-bot/bot/context.js';
 
 function getLanguageCommand(localeCode: string): BotCommand {
   return {
@@ -37,7 +37,9 @@ function getGroupChatCommands(localeCode: string): Array<BotCommand> {
   return [];
 }
 
-export async function setCommandsHandler(context: CommandContext<Context>) {
+export async function setCommandsHandler(
+  context: CommandContext<Context>,
+): Promise<Message> {
   const DEFAULT_LANGUAGE_CODE = 'en';
 
   // set private chat commands
@@ -94,6 +96,8 @@ export async function setCommandsHandler(context: CommandContext<Context>) {
     await Promise.all(requests);
   }
 
+  const adminId = await context.session.user?.id;
+
   // set private chat commands for owner
   await context.api.setMyCommands(
     [
@@ -104,7 +108,7 @@ export async function setCommandsHandler(context: CommandContext<Context>) {
     {
       scope: {
         type: 'chat',
-        chat_id: Number(config.BOT_ADMINS),
+        chat_id: Number(adminId),
       },
     },
   );

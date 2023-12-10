@@ -3,10 +3,10 @@ import { Scene } from 'grammy-scenes';
 
 import { chatAction } from '@grammyjs/auto-chat-action';
 
-import { Context } from '@quiz-bot/bot/context';
-import { logHandle } from '@quiz-bot/bot/helpers/logging';
+import { Context } from '@quiz-bot/bot/context.js';
+import { logHandle } from '@quiz-bot/bot/helpers/logging.js';
 
-import { scenes } from '../scenes';
+import { scenes } from '../scenes.js';
 
 export const QuizzesScene = 'quizzes';
 

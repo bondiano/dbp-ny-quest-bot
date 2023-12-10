@@ -2,10 +2,10 @@ import { Composer } from 'grammy';
 
 import { chatAction } from '@grammyjs/auto-chat-action';
 
-import { Context } from '@quiz-bot/bot/context';
-import { logHandle } from '@quiz-bot/bot/helpers/logging';
+import { Context } from '@quiz-bot/bot/context.js';
+import { logHandle } from '@quiz-bot/bot/helpers/logging.js';
 
-import { OnboardingScene } from './onboarding';
+import { OnboardingScene } from './onboarding.js';
 
 const composer = new Composer<Context>();
 

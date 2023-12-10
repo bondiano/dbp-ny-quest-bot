@@ -1,11 +1,11 @@
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library.js';
 import { Scene } from 'grammy-scenes';
 
 import { chatAction } from '@grammyjs/auto-chat-action';
 
-import { Context } from '@quiz-bot/bot/context';
+import { Context } from '@quiz-bot/bot/context.js';
 
-import { scenes } from '../scenes';
+import { scenes } from '../scenes.js';
 
 export const OnboardingScene = 'onboarding';
 

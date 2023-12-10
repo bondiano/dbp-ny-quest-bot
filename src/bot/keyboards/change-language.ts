@@ -2,10 +2,10 @@ import { InlineKeyboard } from 'grammy';
 import ISO6391 from 'iso-639-1';
 import _ from 'lodash';
 
-import { changeLanguageData } from '../callback-data';
-import { i18n } from '../i18n';
+import { changeLanguageData } from '../callback-data/change-language.js';
+import { i18n } from '../i18n.js';
 
-import type { Context } from '../context';
+import type { Context } from '../context.js';
 
 export const createChangeLanguageKeyboard = async (context: Context) => {
   const currentLocaleCode = await context.i18n.getLocale();

@@ -2,9 +2,9 @@ import { UserQuiz } from '@prisma/client';
 import { StateMachine } from 'fsmoothy';
 import _ from 'lodash';
 
-import { prisma } from '@quiz-bot/prisma';
+import { prisma } from '@quiz-bot/prisma.js';
 
-import { QuestionStatus } from './question.service';
+import { QuestionStatus } from './question.service.js';
 
 export enum UserQuizStatus {
   Active = 'active',

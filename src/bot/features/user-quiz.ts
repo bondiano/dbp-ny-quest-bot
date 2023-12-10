@@ -4,15 +4,15 @@ import { Scene } from 'grammy-scenes';
 
 import { chatAction } from '@grammyjs/auto-chat-action';
 
-import { Context } from '@quiz-bot/bot/context';
-import { logHandle } from '@quiz-bot/bot/helpers/logging';
+import { Context } from '@quiz-bot/bot/context.js';
+import { logHandle } from '@quiz-bot/bot/helpers/logging.js';
 
-import { quizData } from '../callback-data';
+import { quizData } from '../callback-data/quiz.js';
 import {
   QuizKeyboardOptions,
   createUserQuizKeyboard,
-} from '../keyboards/user-quiz';
-import { scenes } from '../scenes';
+} from '../keyboards/user-quiz.js';
+import { scenes } from '../scenes.js';
 
 export const UserQuizzesScene = 'user-quizzes';
 

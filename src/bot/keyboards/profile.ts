@@ -1,8 +1,8 @@
 import { InlineKeyboard } from 'grammy';
 
-import { profileData } from '../callback-data';
+import { profileData } from '../callback-data/profile.js';
 
-import type { Context } from '../context';
+import type { Context } from '../context.js';
 
 export enum ProfileKeyboardOptions {
   Answers = 'answers',

@@ -1,12 +1,12 @@
 import Fastify from 'fastify';
 import { onShutdown } from 'node-graceful-shutdown';
 
-import { attachAdminJS } from './admin';
-import { createBot } from './bot';
-import { config } from './config';
-import { logger } from './logger';
-import { reversePlugin } from './plugins/fastify-reverse-routes';
-import { Routes, createRouter } from './routes';
+import { attachAdminJS } from './admin.js';
+import { createBot } from './bot/index.js';
+import { config } from './config.js';
+import { logger } from './logger.js';
+import { reversePlugin } from './plugins/fastify-reverse-routes.js';
+import { Routes, createRouter } from './routes/index.js';
 
 export const createApp = async () => {
   const app = Fastify();
@@ -37,7 +37,7 @@ export const createApp = async () => {
   await bot.init();
 
   await app.listen({
-    port: config.BOT_SERVER_PORT,
+    port: config.SERVER_PORT,
   });
 
   const webhookPath = app.reverse(Routes.Webhook);
@@ -47,6 +47,8 @@ export const createApp = async () => {
     allowed_updates: config.BOT_ALLOWED_UPDATES,
   });
   logger.debug(`Webhook set to ${webhookUrl}`);
+
+  logger.info(`Server listening on ${config.SERVER_PORT}`);
 
   return await app;
 };

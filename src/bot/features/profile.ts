@@ -1,16 +1,16 @@
 import { Composer } from 'grammy';
 
-import { Context } from '@quiz-bot/bot/context';
-import { logHandle } from '@quiz-bot/bot/helpers/logging';
+import { Context } from '@quiz-bot/bot/context.js';
+import { logHandle } from '@quiz-bot/bot/helpers/logging.js';
 
-import { profileData } from '../callback-data';
+import { profileData } from '../callback-data/profile.js';
 import {
   ProfileKeyboardOptions,
   createProfileKeyboard,
-} from '../keyboards/profile';
+} from '../keyboards/profile.js';
 
-import { LanguageScene } from './language';
-import { QuizzesScene } from './quiz';
+import { LanguageScene } from './language.js';
+import { QuizzesScene } from './quiz.js';
 
 const composer = new Composer<Context>();
 

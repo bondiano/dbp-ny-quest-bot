@@ -1,6 +1,6 @@
 import { Middleware } from 'grammy';
 
-import { Context } from '../context';
+import { Context } from '../context.js';
 
 export function userMiddleware(): Middleware<Context> {
   return async (context, next) => {

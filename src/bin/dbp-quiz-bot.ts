@@ -1,3 +1,3 @@
-import { createApp } from '@quiz-bot/app';
+import { createApp } from '@quiz-bot/app.js';
 
 await createApp();

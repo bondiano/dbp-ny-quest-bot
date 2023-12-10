@@ -1,6 +1,6 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 
-import { logger } from '../logger';
+import { logger } from './logger.js';
 
 const parseParameters = (parameters: string): Array<unknown> => {
   try {

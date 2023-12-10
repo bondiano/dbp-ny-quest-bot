@@ -1,4 +1,4 @@
-import { prisma } from '@quiz-bot/prisma';
+import { prisma } from '@quiz-bot/prisma.js';
 
 export interface SaveUserAnswerDto {
   questionId: number;
@@ -8,13 +8,8 @@ export interface SaveUserAnswerDto {
 }
 
 export class AnswerService {
-  async saveUserAnswer({
-    questionId,
-    userId,
-    isCorrect,
-    answer,
-  }: SaveUserAnswerDto) {
-    return await prisma.user.update({
+  saveUserAnswer({ questionId, userId, isCorrect, answer }: SaveUserAnswerDto) {
+    return prisma.user.update({
       where: {
         id: userId,
       },

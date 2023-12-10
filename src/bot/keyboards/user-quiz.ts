@@ -1,9 +1,9 @@
 import { UserQuiz } from '@prisma/client';
 import { InlineKeyboard } from 'grammy';
 
-import { quizData } from '../callback-data';
+import { quizData } from '../callback-data/quiz.js';
 
-import type { Context } from '../context';
+import type { Context } from '../context.js';
 
 export enum QuizKeyboardOptions {
   Start = 'start',

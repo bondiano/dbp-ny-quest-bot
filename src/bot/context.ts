@@ -7,12 +7,12 @@ import type { I18nFlavor } from '@grammyjs/i18n';
 import type { ParseModeFlavor } from '@grammyjs/parse-mode';
 import { Update, UserFromGetMe } from '@grammyjs/types';
 
-import { PrismaClientX } from '@quiz-bot/prisma';
-import { Services } from '@quiz-bot/services';
+import { PrismaClientX } from '@quiz-bot/prisma.js';
+import { Services } from '@quiz-bot/services/index.js';
 
-import { SessionData } from './session';
+import { SessionData } from './session.js';
 
-import type { Logger } from '../logger';
+import type { Logger } from '../logger.js';
 
 type ExtendedContextFlavor = {
   logger: Logger;

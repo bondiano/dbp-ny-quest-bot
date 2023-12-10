@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify';
 import { webhookCallback } from 'grammy';
 import { nanoid } from 'nanoid';
 
-import { Bot } from '@quiz-bot/bot';
+import { Bot } from '@quiz-bot/bot/index.js';
 
 export enum Routes {
   Webhook = 'webhook',

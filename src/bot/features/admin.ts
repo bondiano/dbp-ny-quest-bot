@@ -3,10 +3,10 @@ import _ from 'lodash';
 
 import { chatAction } from '@grammyjs/auto-chat-action';
 
-import { Context } from '../context';
-import { isAdmin } from '../guards/is-admin';
-import { setCommandsHandler } from '../handlers/commands/setcommands';
-import { logHandle } from '../helpers/logging';
+import { Context } from '../context.js';
+import { isAdmin } from '../guards/is-admin.js';
+import { setCommandsHandler } from '../handlers/commands/setcommands.js';
+import { logHandle } from '../helpers/logging.js';
 
 const composer = new Composer<Context>();
 

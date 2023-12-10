@@ -1,8 +1,8 @@
 import { Middleware } from 'grammy';
 import { performance } from 'node:perf_hooks';
 
-import { Context } from '../context';
-import { getUpdateInfo } from '../helpers/logging';
+import { Context } from '../context.js';
+import { getUpdateInfo } from '../helpers/logging.js';
 
 export function updateLogger(): Middleware<Context> {
   return async (context, next) => {

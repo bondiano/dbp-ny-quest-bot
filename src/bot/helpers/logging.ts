@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import type { Update } from '@grammyjs/types';
 
-import type { Context } from '../context';
+import type { Context } from '../context.js';
 
 export function getUpdateInfo(context: Context): Omit<Update, 'update_id'> {
   return _.omit(context.update, ['update_id']);
