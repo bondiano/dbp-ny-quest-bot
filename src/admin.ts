@@ -7,6 +7,8 @@ import { FastifyInstance } from 'fastify';
 import { config } from '@quiz-bot/config.js';
 import { prisma } from '@quiz-bot/prisma.js';
 
+import { logger } from './logger.js';
+
 const authenticate = async (email: string, password: string) => {
   if (email === config.ADMIN_EMAIL && password === config.ADMIN_PASSWORD) {
     return {
@@ -76,4 +78,6 @@ export const attachAdminJS = async (app: FastifyInstance) => {
     app,
     sessionOptions,
   );
+
+  logger.info(`AdminJS attached to ${admin.options.rootPath}`);
 };

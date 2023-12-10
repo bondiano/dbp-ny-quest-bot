@@ -47,8 +47,7 @@ export const createApp = async () => {
   await bot.api.setWebhook(webhookUrl, {
     allowed_updates: config.BOT_ALLOWED_UPDATES,
   });
-  logger.debug(`Webhook set to ${webhookUrl}`);
-
+  logger.info(`Webhook set to ${webhookUrl}`);
   logger.info(`Server listening on ${config.SERVER_PORT}`);
 
   return await app;

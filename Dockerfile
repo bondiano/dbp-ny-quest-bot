@@ -17,6 +17,7 @@ USER node
 COPY --chown=node:node ./locales ./locales
 COPY --chown=node:node ./package.json ./package.json
 COPY --chown=node:node ./.adminjs ./.adminjs
+COPY --chown=node:node ./prisma ./prisma
 COPY --chown=node:node --from=build /app/node_modules ./node_modules
 COPY --chown=node:node --from=build /app/dist .
 
