@@ -52,8 +52,7 @@ model Question {
   status String @default("draft")
   type   String @default("single")
 
-  media   Media?         @relation(fields: [mediaId], references: [id])
-  mediaId Int?           @map("media_id")
+  medias  MediaQuestion[]
   quizes  QuizQuestion[]
   answers Answer[]
 
@@ -61,6 +60,20 @@ model Question {
   createdAt DateTime @default(now()) @map("created_at")
 
   @@map(name: "questions")
+}
+
+model MediaQuestion {
+  id Int @id @default(autoincrement())
+
+  mediaId    Int      @map("media_id")
+  media      Media    @relation(fields: [mediaId], references: [id])
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId Int      @map("question_id")
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map(name: "media_questions")
 }
 
 model Quiz {
@@ -125,25 +138,16 @@ model Session {
 }
 
 model Media {
-  id                Int    @id @default(autoincrement())
-  slug              String @unique
-  telegramMediaId   String
+  id                Int     @id @default(autoincrement())
+  alt               String?
+  telegramMediaId   String  @unique @map("telegram_media_id")
   telegramMediaType String
-  type              String
 
-  Question Question[]
+  questions MediaQuestion[]
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 
-  @@index([type])
   @@index([telegramMediaId])
   @@map(name: "media")
-}
-
-model AdminSession {
-  id        String   @id @default(uuid())
-  sid       String   @unique
-  data      String
-  expiresAt   DateTime?
 }

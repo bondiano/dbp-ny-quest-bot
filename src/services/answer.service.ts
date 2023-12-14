@@ -29,4 +29,16 @@ export class AnswerService {
       },
     });
   }
+
+  async isCorrectAnswer(questionId: number, answer: string) {
+    const normalizedAnswer = answer.toLowerCase().trim();
+
+    const question = await prisma.question.findUnique({
+      where: {
+        id: questionId,
+      },
+    });
+
+    return question?.answer.toLowerCase().trim() === normalizedAnswer;
+  }
 }

@@ -1,11 +1,13 @@
 import { Question, Quiz, UserQuiz } from '@prisma/client';
 import { Composer } from 'grammy';
 import { Scene } from 'grammy-scenes';
+import _ from 'lodash';
 
 import { chatAction } from '@grammyjs/auto-chat-action';
 
 import { Context } from '@quiz-bot/bot/context.js';
 import { logHandle } from '@quiz-bot/bot/helpers/logging.js';
+import { br2nl } from '@quiz-bot/utils.js';
 
 import { quizData } from '../callback-data/quiz.js';
 import {
@@ -177,34 +179,23 @@ userQuizScene.step(async (context) => {
 
   context.scene.session.question = nextQuestion.question;
 
-  const questionText = nextQuestion.question.text
-    .trim()
-    .replaceAll('<br/>', '\n')
-    .replaceAll('<br />', '\n')
-    .replaceAll('<br>', '\n');
+  const questionText = br2nl(nextQuestion.question.text);
 
-  if (nextQuestion.question.mediaId) {
-    const media = await context.prisma.media.findUnique({
-      where: {
-        id: nextQuestion.question.mediaId,
-      },
-    });
+  const { medias } = nextQuestion.question;
+  if (!_.isEmpty(medias)) {
+    const mediaGroup = medias.map(({ media }) => ({
+      media: media.telegramMediaId,
+      type: media.telegramMediaType as 'photo' | 'video',
+    }));
 
-    media &&
-      (await context.replyWithMediaGroup([
-        {
-          media: media?.telegramMediaId,
-          type: media?.type as 'photo' | 'audio' | 'document' | 'video',
-          caption: questionText,
-        },
-      ]));
-  } else {
-    await context.reply(
-      context.t('question.next', {
-        question: questionText,
-      }),
-    );
+    await context.replyWithMediaGroup(mediaGroup);
   }
+
+  await context.reply(
+    context.t('question.next', {
+      question: questionText,
+    }),
+  );
 });
 
 userQuizScene.wait('answer').on('message', async (context) => {
@@ -216,7 +207,10 @@ userQuizScene.wait('answer').on('message', async (context) => {
     return;
   }
 
-  const isCorrect = question.answer === context.message!.text;
+  const isCorrect = await context.services.answer.isCorrectAnswer(
+    question.id,
+    context.message!.text!,
+  );
 
   await context.services.answer.saveUserAnswer({
     questionId: question.id,
@@ -238,8 +232,7 @@ userQuizScene.wait('answer').on('message', async (context) => {
 
   if (!nextQuestion) {
     await context.reply(context.t('question.new-not-found'));
-    await context.scene.exit();
-    return;
+    return context.scene.exit();
   }
 
   context.scene.goto('next-question');

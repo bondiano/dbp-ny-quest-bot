@@ -36,6 +36,10 @@ export const attachAdminJS = async (app: FastifyInstance) => {
       options: {},
     },
     {
+      resource: { model: getModelByName('MediaQuestion'), client: prisma },
+      options: {},
+    },
+    {
       resource: { model: getModelByName('Answer'), client: prisma },
       options: {},
     },

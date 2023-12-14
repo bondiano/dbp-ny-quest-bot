@@ -138,7 +138,15 @@ export class UserQuizService {
           include: {
             questions: {
               include: {
-                question: true,
+                question: {
+                  include: {
+                    medias: {
+                      include: {
+                        media: true,
+                      },
+                    },
+                  },
+                },
               },
             },
           },
