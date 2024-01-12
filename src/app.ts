@@ -28,7 +28,7 @@ export const createApp = async () => {
 
   createRouter(app, bot);
 
-  app.setErrorHandler(async (error, request, response) => {
+  app.setErrorHandler(async (error, _request, response) => {
     logger.error(error);
 
     await response.status(500).send({ error: 'Oops! Something went wrong.' });

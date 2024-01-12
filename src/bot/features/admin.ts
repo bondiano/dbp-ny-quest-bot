@@ -71,7 +71,7 @@ feature.command('media', async (context) => {
   await context.replyWithMediaGroup([
     {
       media: media.telegramMediaId,
-      type: media.telegramMediaType as any,
+      type: media.telegramMediaType as 'photo' | 'audio' | 'document' | 'video',
       caption: `media id: ${media.id}\ntelegram media id: ${media.telegramMediaId}\ntype: ${media.telegramMediaType}`,
     },
   ]);

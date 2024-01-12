@@ -45,6 +45,9 @@ language =
     .changed = Language successfully changed!
     .unknown = Unknown language
 
+media =
+    .not-found = Media not found.
+
 admin =
     .commands-updated = Commands updated.
 unhandled = Unrecognized command. Try /start
