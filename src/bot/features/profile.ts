@@ -9,6 +9,7 @@ import {
   createProfileKeyboard,
 } from '../keyboards/profile.js';
 
+import { AnswersScene } from './answers.js';
 import { LanguageScene } from './language.js';
 import { QuizzesScene } from './quiz.js';
 
@@ -45,7 +46,7 @@ feature.callbackQuery(
         return await context.scenes.enter(LanguageScene);
       }
       case ProfileKeyboardOptions.Answers: {
-        return; // TODO
+        return await context.scenes.enter(AnswersScene);
       }
     }
   },

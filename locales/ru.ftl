@@ -55,4 +55,13 @@ language =
 
 admin =
     .commands-updated = Команды обновлены.
+
+user =
+    .empty = Вы еще не ответили ни на один вопрос.
+    .not-found = Пожалуйста, создайте профиль с помощью /start.
+
+answers =
+    .list = <b>Мои ответы:</b>
+        {$answers}
+
 unhandled = Нераспознанная команда. Попробуйте /start

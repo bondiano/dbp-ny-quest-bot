@@ -50,4 +50,13 @@ media =
 
 admin =
     .commands-updated = Commands updated.
+
+user =
+    .not-found = Please, create a profile using /start.
+
+answers =
+    .empty = No answers found.
+    .list = <b>Your answers:</b>
+        {$answers}
+
 unhandled = Unrecognized command. Try /start

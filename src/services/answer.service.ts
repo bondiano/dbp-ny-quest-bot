@@ -41,4 +41,21 @@ export class AnswerService {
 
     return question?.answer.toLowerCase().trim() === normalizedAnswer;
   }
+
+  async getUserAnswers(userId: number) {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      include: {
+        answers: {
+          include: {
+            question: true,
+          },
+        },
+      },
+    });
+
+    return user?.answers;
+  }
 }
