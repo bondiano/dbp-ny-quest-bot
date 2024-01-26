@@ -4,6 +4,8 @@ language_command =
     .description = Change language
 setcommands_command =
     .description = Set bot commands
+profile_command =
+    .description = View your profile
 
 welcome = Welcome to <b>Dualboot Quiz Bot</b>!
 

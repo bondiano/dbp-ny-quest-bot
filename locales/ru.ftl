@@ -4,6 +4,8 @@ language_command =
     .description = Сменить язык
 setcommands_command =
     .description = Установить команды
+profile_command =
+    .description = Просмотреть профиль
 
 welcome = Добро пожаловать в <b>Dualboot Quiz Bot</b>.
 
