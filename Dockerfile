@@ -1,4 +1,4 @@
-FROM node:20.10.0-bullseye-slim AS build
+FROM node:20.11.0-bullseye-slim AS build
 
 WORKDIR /app
 COPY . .
@@ -6,7 +6,7 @@ COPY . .
 RUN yarn install
 RUN yarn build
 
-FROM node:20.10.0-bullseye-slim AS runtime
+FROM node:20.11.0-bullseye-slim AS runtime
 
 WORKDIR /app
 
