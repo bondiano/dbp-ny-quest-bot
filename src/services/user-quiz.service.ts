@@ -209,6 +209,7 @@ export class UserQuizService {
 
       return correctAnswersCount * 1_000_000_000_000 - lastAnswerAt.getTime();
     })
+      .filter((userQuiz) => userQuiz.user.role !== 'admin')
       .reverse()
       .map((userQuiz) => {
         const user = userQuiz.user;
