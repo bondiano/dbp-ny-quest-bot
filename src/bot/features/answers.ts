@@ -1,6 +1,8 @@
 import { Composer } from 'grammy';
 import { Scene } from 'grammy-scenes';
 
+import { br2nl } from '@quiz-bot/utils.js';
+
 import { Context } from '../context.js';
 import { logHandle } from '../helpers/logging.js';
 import { scenes } from '../scenes.js';
@@ -39,7 +41,7 @@ answersScene.step(async (context) => {
     .map((answer) => {
       const { question, answer: answerText, isCorrect } = answer;
 
-      const questionText = question.text;
+      const questionText = br2nl(question.text);
 
       const answerTextWithEmoji = isCorrect
         ? `✅ ${answerText}`
