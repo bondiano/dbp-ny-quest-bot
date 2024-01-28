@@ -208,19 +208,21 @@ export class UserQuizService {
       const lastAnswerAt = _.max(answersDates) ?? new Date();
 
       return correctAnswersCount * 1_000_000_000_000 - lastAnswerAt.getTime();
-    }).map((userQuiz) => {
-      const user = userQuiz.user;
+    })
+      .reverse()
+      .map((userQuiz) => {
+        const user = userQuiz.user;
 
-      const correctAnswersCount = user.answers.filter(
-        (answer) => answer.isCorrect,
-      ).length;
+        const correctAnswersCount = user.answers.filter(
+          (answer) => answer.isCorrect,
+        ).length;
 
-      return {
-        userId: user.id,
-        slackName: user.slackName,
-        correctAnswersCount,
-      };
-    });
+        return {
+          userId: user.id,
+          slackName: user.slackName,
+          correctAnswersCount,
+        };
+      });
 
     const userQuizIndex = sortedLeaderboard.findIndex(
       (userQuiz) => userQuiz.userId === userId,
