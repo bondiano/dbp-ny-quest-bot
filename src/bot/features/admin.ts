@@ -25,7 +25,7 @@ feature.command(
 
 feature.command(
   'notify_about_quiz',
-  logHandle('command-activate_quiz_question'),
+  logHandle('command-notify_about_quiz'),
   async (context) => {
     const slug = context.message.text.replace('/notify_about_quiz', '').trim();
 

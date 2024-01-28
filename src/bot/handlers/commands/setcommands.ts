@@ -24,10 +24,6 @@ function getPrivateChatCommands(localeCode: string): Array<BotCommand> {
       command: 'profile',
       description: i18n.t(localeCode, 'profile_command.description'),
     },
-    {
-      command: 'language',
-      description: i18n.t(localeCode, 'language_command.description'),
-    },
   ];
 }
 
@@ -36,6 +32,10 @@ function getPrivateChatAdminCommands(localeCode: string): Array<BotCommand> {
     {
       command: 'setcommands',
       description: i18n.t(localeCode, 'setcommands_command.description'),
+    },
+    {
+      command: 'notify_about_quiz',
+      description: 'Notify all participants about quiz <quiz_slug>',
     },
   ];
 }
