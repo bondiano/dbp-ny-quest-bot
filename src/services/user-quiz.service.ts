@@ -196,7 +196,11 @@ export class UserQuizService {
       },
     });
 
-    const sortedLeaderboard = _.sortBy(leaderboard, (userQuiz) => {
+    const leaderBoardWithoutAdmin = leaderboard.filter(
+      (userQuiz) => userQuiz.user.role !== 'admin',
+    );
+
+    const sortedLeaderboard = _.sortBy(leaderBoardWithoutAdmin, (userQuiz) => {
       const user = userQuiz.user;
 
       const correctAnswersCount = user.answers.filter(
@@ -209,7 +213,6 @@ export class UserQuizService {
 
       return correctAnswersCount * 1_000_000_000_000 - lastAnswerAt.getTime();
     })
-      .filter((userQuiz) => userQuiz.user.role !== 'admin')
       .reverse()
       .map((userQuiz) => {
         const user = userQuiz.user;
