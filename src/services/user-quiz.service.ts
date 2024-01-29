@@ -232,6 +232,13 @@ export class UserQuizService {
       (userQuiz) => userQuiz.userId === userId,
     );
 
+    if (userQuizIndex === -1) {
+      return {
+        leaderboard: sortedLeaderboard,
+        user: null,
+      };
+    }
+
     const user = {
       index: userQuizIndex,
       correctAnswersCount: sortedLeaderboard[userQuizIndex].correctAnswersCount,

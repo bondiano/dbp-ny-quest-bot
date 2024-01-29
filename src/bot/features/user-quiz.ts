@@ -135,7 +135,7 @@ userQuizScene
             })
             .splice(0, 10);
 
-          if (leaderboard.user.index > 10) {
+          if (leaderboard.user && leaderboard.user.index > 10) {
             leaderboardText.push(
               `... ${leaderboard.user.index + 1}. ${
                 context.session.user!.slackName
