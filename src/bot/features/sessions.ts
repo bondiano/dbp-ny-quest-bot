@@ -18,12 +18,8 @@ feature.command(
   },
 );
 
-feature.command(
-  'session',
-  logHandle('command-clear_session'),
-  async (context) => {
-    await context.reply(JSON.stringify(context.session, null, 2));
-  },
-);
+feature.command('session', logHandle('command-session'), async (context) => {
+  await context.reply(context.session.user?.telegramId ?? 'no user');
+});
 
 export { composer as sessionsFeature };
