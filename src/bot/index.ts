@@ -44,9 +44,7 @@ export const createBot = () => {
 
   bot.api.config.use(parseMode('HTML'));
 
-  if (config.isDev) {
-    protectedBot.use(updateLogger());
-  }
+  protectedBot.use(updateLogger());
 
   protectedBot.use(autoChatAction(bot.api));
   protectedBot.use(hydrateReply);
