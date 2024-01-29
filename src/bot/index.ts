@@ -21,6 +21,7 @@ import {
   welcomeFeature,
 } from './features/index.js';
 import { quizzesFeature } from './features/quiz.js';
+import { sessionsFeature } from './features/sessions.js';
 import { userQuizzesFeature } from './features/user-quiz.js';
 import { errorHandler } from './handlers/error.js';
 import { PrismaAdapter } from './helpers/session-adapter.js';
@@ -61,6 +62,7 @@ export const createBot = () => {
 
   protectedBot.use(userMiddleware());
   protectedBot.use(pseudoUpdate);
+  protectedBot.use(sessionsFeature);
   protectedBot.use(helpersFeature);
 
   protectedBot.use(scenes);
