@@ -19,7 +19,10 @@ feature.command(
 );
 
 feature.command('session', logHandle('command-session'), async (context) => {
-  await context.reply(context.session.user?.telegramId ?? 'no user');
+  const telegramId =
+    context.session.user?.telegramId ?? context.from?.id ?? 'no user';
+
+  await context.reply(String(telegramId));
 });
 
 export { composer as sessionsFeature };
