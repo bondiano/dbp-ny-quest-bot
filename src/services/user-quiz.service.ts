@@ -76,6 +76,38 @@ export class UserQuizService {
     });
   }
 
+  async getQuestion(quizId: number) {
+    return await prisma.userQuiz.findFirst({
+      where: {
+        quizId,
+      },
+      include: {
+        quiz: {
+          include: {
+            questions: {
+              include: {
+                question: {
+                  include: {
+                    medias: {
+                      include: {
+                        media: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        user: {
+          include: {
+            answers: true,
+          },
+        },
+      },
+    });
+  }
+
   async start(quizId: number, userId: number) {
     const userQuiz = await prisma.userQuiz.create({
       data: {

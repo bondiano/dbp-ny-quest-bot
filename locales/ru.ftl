@@ -6,6 +6,8 @@ setcommands_command =
     .description = Установить команды
 profile_command =
     .description = Просмотреть профиль
+session =
+    .clear = Сессия очищена.
 
 welcome = Добро пожаловать в <b>Dualboot Quiz Bot</b>.
 

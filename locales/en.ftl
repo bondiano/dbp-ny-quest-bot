@@ -6,6 +6,8 @@ setcommands_command =
     .description = Set bot commands
 profile_command =
     .description = View your profile
+session =
+    .clear = Session cleared
 
 welcome = Welcome to <b>Dualboot Quiz Bot</b>!
 

@@ -114,7 +114,7 @@ export class QuizService {
     }
 
     const fsm = new QuizStatusFSM(quiz);
-    return fsm.publish();
+    return await fsm.publish();
   }
 
   async unpublish(slug: string) {
@@ -125,6 +125,6 @@ export class QuizService {
     }
 
     const fsm = new QuizStatusFSM(quiz);
-    return fsm.unpublish();
+    return await fsm.unpublish();
   }
 }

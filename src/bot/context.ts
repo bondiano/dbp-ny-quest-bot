@@ -1,5 +1,6 @@
 import { Context as DefaultContext, SessionFlavor, type Api } from 'grammy';
 import { ScenesFlavor } from 'grammy-scenes';
+import OpenAI from 'openai';
 
 import type { AutoChatActionFlavor } from '@grammyjs/auto-chat-action';
 import type { HydrateFlavor } from '@grammyjs/hydrate';
@@ -18,6 +19,7 @@ type ExtendedContextFlavor = {
   logger: Logger;
   prisma: PrismaClientX;
   services: Services;
+  openai: OpenAI;
 };
 
 export type Context = ParseModeFlavor<
@@ -35,17 +37,20 @@ interface Dependencies {
   services: Services;
   prisma: PrismaClientX;
   logger: Logger;
+  openai: OpenAI;
 }
 
 export function createContextConstructor({
   logger,
   prisma,
   services,
+  openai,
 }: Dependencies) {
   return class extends DefaultContext implements ExtendedContextFlavor {
     prisma: PrismaClientX;
     logger: Logger;
     services: Services;
+    openai: OpenAI;
 
     constructor(update: Update, api: Api, me: UserFromGetMe) {
       super(update, api, me);
@@ -55,6 +60,7 @@ export function createContextConstructor({
       });
       this.services = services;
       this.prisma = prisma;
+      this.openai = openai;
     }
   } as unknown as new (update: Update, api: Api, me: UserFromGetMe) => Context;
 }

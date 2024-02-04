@@ -1,5 +1,6 @@
 import { Bot as TelegramBot, session } from 'grammy';
 import { pseudoUpdate } from 'grammy-pseudo-update';
+import OpenAI from 'openai';
 
 import { autoChatAction } from '@grammyjs/auto-chat-action';
 import { hydrate } from '@grammyjs/hydrate';
@@ -32,11 +33,16 @@ import { scenes } from './scenes.js';
 import { SessionData, initialSessionData } from './session.js';
 
 export const createBot = () => {
+  const openai = new OpenAI({
+    apiKey: config.GPT_TOKEN,
+  });
+
   const bot = new TelegramBot(config.BOT_TOKEN, {
     ContextConstructor: createContextConstructor({
       logger,
       prisma,
       services: createServicesContainer(),
+      openai,
     }),
   });
 

@@ -28,6 +28,8 @@ export const configSchema = {
   ADMIN_PASSWORD: z.string(),
 
   COOKIE_SECRET: z.string().min(32),
+
+  GPT_TOKEN: z.string(),
 } as const;
 
 const environmentVariables = parseEnv(process.env, configSchema);

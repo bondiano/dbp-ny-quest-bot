@@ -196,6 +196,10 @@ userQuizScene.step(async (context) => {
       question: questionText,
     }),
   );
+
+  if (nextQuestion.question.type === 'gpt') {
+    context.scene.goto('gpt-question');
+  }
 });
 
 userQuizScene.wait('answer').on('message', async (context) => {
@@ -224,6 +228,18 @@ userQuizScene.wait('answer').on('message', async (context) => {
     return;
   }
 
+  context.scene.goto('correct-answer');
+});
+
+userQuizScene.label('correct-answer').step(async (context) => {
+  const { userQuiz } = context.scene.session;
+
+  if (!userQuiz) {
+    await context.reply(context.t('quiz.not-found'));
+    await context.scene.exit();
+    return;
+  }
+
   await context.reply(context.t('answer.correct'));
 
   const nextQuestion = await context.services.userQuiz.getNextQuestion(
@@ -237,5 +253,69 @@ userQuizScene.wait('answer').on('message', async (context) => {
 
   context.scene.goto('next-question');
 });
+
+userQuizScene
+  .label('gpt-question')
+  .wait('prompt')
+  .on('message', async (context) => {
+    const { question } = context.scene.session;
+
+    if (!question) {
+      await context.reply(context.t('quiz.not-found'));
+      await context.scene.exit();
+      return;
+    }
+
+    const initialPrompt = question.initialPrompt ?? '';
+    const initialPromptWithReplaced = initialPrompt.replace(
+      '{username}',
+      context.session.user?.slackName ?? '',
+    );
+    const last5Attempts = context.session.lastGptAttempts?.slice(-5) ?? [];
+
+    context.session.lastGptAttempts = [
+      ...last5Attempts,
+      context.message!.text!,
+    ];
+
+    const chatCompletion = await context.openai.chat.completions.create({
+      model: 'gpt-3.5-turbo-16k-0613',
+      messages: [
+        {
+          role: 'user',
+          content: initialPromptWithReplaced,
+        },
+        ...last5Attempts.map(
+          (content) =>
+            ({
+              role: 'user',
+              content,
+            }) as const,
+        ),
+      ],
+    });
+
+    const result = chatCompletion.choices[0].message.content;
+
+    if (!result) {
+      await context.reply(context.t('gpt.no-answer'));
+      return;
+    }
+
+    context.reply(result);
+
+    const hasCorrectAnswer = result.includes(question.answer);
+
+    if (hasCorrectAnswer) {
+      await context.services.answer.saveUserAnswer({
+        questionId: question!.id,
+        userId: context.session.user!.id,
+        isCorrect: true,
+        answer: context.message!.text!,
+      });
+
+      context.scene.goto('correct-answer');
+    }
+  });
 
 export { composer as userQuizzesFeature };
