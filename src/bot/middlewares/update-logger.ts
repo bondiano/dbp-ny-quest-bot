@@ -16,7 +16,7 @@ export function updateLogger(): Middleware<Context> {
       return previous(method, payload, signal);
     });
 
-    context.logger.debug({
+    context.logger.info({
       msg: 'update received',
       update: getUpdateInfo(context),
     });
