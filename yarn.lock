@@ -1515,6 +1515,11 @@
   resolved "https://registry.npmjs.org/@floating-ui/utils/-/utils-0.2.1.tgz#16308cea045f0fc777b6ff20a9f25474dd8293d2"
   integrity sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==
 
+"@fsmoothy/core@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/@fsmoothy/core/-/core-1.1.1.tgz#672434687b311b1fa2f2d37750e8ee29885ac278"
+  integrity sha512-2p0PpR8oUJGoTT2YxH5CBrLG2z+fMb7AaMm140xE7tyGDFsO6r/mHusx0d+67vMUOVjB2PMbUUpqHik6SquYJA==
+
 "@grammyjs/auto-chat-action@^0.1.1":
   version "0.1.1"
   resolved "https://registry.npmjs.org/@grammyjs/auto-chat-action/-/auto-chat-action-0.1.1.tgz#2c70faca0e317ac3e742ea241181cedaa4231081"
@@ -3825,11 +3830,6 @@ fsevents@~2.3.2, fsevents@~2.3.3:
   version "2.3.3"
   resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz#cac6407785d03675a2a5e1a5305c697b347d90d6"
   integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
-
-fsmoothy@1.8.1:
-  version "1.8.1"
-  resolved "https://registry.npmjs.org/fsmoothy/-/fsmoothy-1.8.1.tgz#2a129b2477386af1a4e248d8024121e38635658b"
-  integrity sha512-agT8NbfIgUTVNtcuNFTfVwkN2nDQP3Y6HYvnMNTUIrL5Xp21zapXgvCyTaCuRAleGIbPl0zzLv3TmxUX19DFMg==
 
 function-bind@^1.1.2:
   version "1.1.2"

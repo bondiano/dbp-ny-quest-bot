@@ -1,5 +1,5 @@
+import { StateMachine } from '@fsmoothy/core';
 import { UserQuiz } from '@prisma/client';
-import { StateMachine } from 'fsmoothy';
 import _ from 'lodash';
 
 import { prisma } from '@quiz-bot/prisma.js';
