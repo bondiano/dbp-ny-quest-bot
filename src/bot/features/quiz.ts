@@ -18,7 +18,7 @@ feature.command(
   'quiz',
   logHandle('command-quizzes'),
   chatAction('typing'),
-  async (context) => {
+  async (context: Context) => {
     await context.scenes.enter(QuizzesScene);
   },
 );

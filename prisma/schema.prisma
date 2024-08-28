@@ -20,6 +20,7 @@ model User {
 
   answers Answer[]
   quzes   UserQuiz[]
+  medias  Media[]
 
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
@@ -45,12 +46,12 @@ model Answer {
 }
 
 model Question {
-  id           Int     @id @default(autoincrement())
-  slug         String  @default("")
-  text         String  @default("")
-  answer       String  @default("")
-  status       String  @default("draft")
-  type         String  @default("single")
+  id            Int     @id @default(autoincrement())
+  slug          String  @default("")
+  text          String  @default("")
+  answer        String  @default("")
+  status        String  @default("draft")
+  type          String  @default("single")
   initialPrompt String?
 
   medias  MediaQuestion[]
@@ -143,6 +144,9 @@ model Media {
   alt               String?
   telegramMediaId   String  @unique @map("telegram_media_id")
   telegramMediaType String
+
+  author   User @relation(fields: [authorId], references: [id])
+  authorId Int  @map("author_id")
 
   questions MediaQuestion[]
 

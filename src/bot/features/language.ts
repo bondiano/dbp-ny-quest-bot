@@ -54,7 +54,7 @@ languageScene
 
       await context.editMessageText(context.t('language.changed'));
 
-      await context.scene.exit();
+      context.scene.exit();
     },
   );
 

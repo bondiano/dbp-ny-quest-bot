@@ -26,7 +26,6 @@ onboardingScene.wait('email').on('message', async (context) => {
   if (!email?.endsWith(dualbootEmailDomain)) {
     return await context.reply(context.t('onboarding.email-invalid'));
   }
-
   try {
     context.session.user = await context.services.user.createUser(
       String(context.from.id),
